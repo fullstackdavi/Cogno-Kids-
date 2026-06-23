@@ -287,3 +287,97 @@ export function downloadDailyPlanPDF(activities: { logic: any, attention: any, m
 
   doc.save(`cogno-kids-plano-diario-${dateStr}.pdf`);
 }
+
+export function downloadCertificatePDF(childName: string) {
+  const doc = new jsPDF({
+    orientation: 'landscape',
+    unit: 'mm',
+    format: 'a4',
+  });
+
+  // Background base
+  doc.setFillColor(248, 250, 252); // slate-50
+  doc.rect(0, 0, 297, 210, 'F');
+
+  // Decorative double border
+  doc.setDrawColor(99, 102, 241); // indigo-500
+  doc.setLineWidth(1.5);
+  doc.rect(10, 10, 277, 190);
+  
+  doc.setDrawColor(245, 158, 11); // amber-500
+  doc.setLineWidth(0.5);
+  doc.rect(12, 12, 273, 186);
+
+  // Top Title
+  doc.setTextColor(30, 27, 75); // Indigo-950
+  doc.setFont('Helvetica', 'bold');
+  doc.setFontSize(24);
+  doc.text('CERTIFICADO DE EXPLORADOR COGNITIVO', 148.5, 45, { align: 'center' });
+
+  // Subtitle
+  doc.setFontSize(14);
+  doc.setFont('Helvetica', 'normal');
+  doc.setTextColor(71, 85, 105);
+  doc.text('Concedido com muito orgulho e carinho a:', 148.5, 65, { align: 'center' });
+
+  // Child Name (Large & Bold)
+  doc.setFontSize(28);
+  doc.setFont('Helvetica', 'bold');
+  doc.setTextColor(219, 39, 119); // Rose-600
+  doc.text(childName.toUpperCase() || 'PEQUENO EXPLORADOR', 148.5, 85, { align: 'center' });
+
+  // Decorative separator line under child name
+  doc.setDrawColor(244, 63, 94); // Rose-500
+  doc.setLineWidth(1);
+  doc.line(70, 93, 227, 93);
+
+  // Body description
+  doc.setFontSize(11);
+  doc.setFont('Helvetica', 'normal');
+  doc.setTextColor(51, 65, 85);
+  doc.text(
+    'Por demonstrar excelente desempenho, foco de atenção, dedicação aos valores humanos e',
+    148.5,
+    110,
+    { align: 'center' }
+  );
+  doc.text(
+    'perseverança ao explorar todas as vertentes pedagógicas de estímulo cognitivo na plataforma Cogno Kids®.',
+    148.5,
+    116,
+    { align: 'center' }
+  );
+
+  // Grid list of modules explored
+  doc.setFillColor(238, 242, 255); // Indigo-50
+  doc.rect(30, 130, 237, 18, 'F');
+  doc.setFontSize(9);
+  doc.setFont('Helvetica', 'bold');
+  doc.setTextColor(79, 70, 229); // Indigo-600
+  doc.text(
+    'Módulos Dominados: Raciocínio Lógico | Atenção e Reflexo | Coordenação Motora | Valores e Empatia | Mini Jogos | Checklists | Impressos',
+    148.5,
+    141,
+    { align: 'center' }
+  );
+
+  // Seals / Signature / Date
+  doc.setTextColor(100, 116, 139);
+  doc.setFont('Helvetica', 'normal');
+  doc.setFontSize(9);
+  const dateStr = new Date().toLocaleDateString('pt-BR');
+  doc.text(`Data de Emissão: ${dateStr}`, 40, 175);
+
+  doc.text('__________________________________', 200, 172);
+  doc.setFont('Helvetica', 'bold');
+  doc.text('Comissão Pedagógica Cogno Kids®', 200, 179);
+
+  // Decorative Golden Seal Circle at the bottom center
+  doc.setFillColor(245, 158, 11); // Amber-500
+  doc.circle(148.5, 172, 10, 'F');
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(14);
+  doc.text('O', 148.5, 176, { align: 'center' }); // Circle interior representation
+
+  doc.save(`certificado-cogno-kids-${childName.toLowerCase().replace(/\s+/g, '-') || 'explorador'}.pdf`);
+}
