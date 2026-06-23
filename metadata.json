@@ -1,0 +1,6 @@
+{
+  "name": "Cogno Kids",
+  "description": "Plataforma digital voltada para o desenvolvimento cognitivo infantil, reunindo atividades, jogos pedagógicos, checklists de desenvolvimento e planos diários para pais e educadores.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
